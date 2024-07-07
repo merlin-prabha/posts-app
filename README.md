@@ -71,4 +71,4 @@
 
 ### Third-party packages
 
-    React Loader Spinner, react-router-dom
+    React Loader Spinner, react-router-dom, react-icons

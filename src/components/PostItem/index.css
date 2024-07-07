@@ -1,0 +1,56 @@
+.post-item {
+    box-shadow: 0px 4px 16px 0px rgba(59, 130, 246, 1);
+    border-radius: 20px;
+    padding: 30px;
+    font-family: "Roboto";
+    color: #000000;
+    width: 500px;
+    height: 550px;
+    list-style-type: none;
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.post-img {
+    height: 200px;
+    width: 200px;
+    align-self: center;
+
+}
+.post-title {
+    font-size: 25px;
+    align-self: center;
+}
+.post-description {
+    font-size: 20px;
+
+}
+.likes-edit-container {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.like-dislike-container {
+    display: flex;
+    
+}
+.like-container {
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+
+}
+.logo {
+    font-size: 20px;
+}
+.edit-btn {
+    display: flex;
+    align-items: center;
+    border-width: 0px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(59, 130, 246, 1);
+    font-size: 18px;
+}
