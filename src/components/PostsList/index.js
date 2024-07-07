@@ -12,7 +12,7 @@ const apiStatusConstants = {
   }
 
 class PostsList extends Component {
-    state = {postsList: [], apiStatus: apiStatusConstants.initial}
+    state = {postsList: [], apiStatus: apiStatusConstants.initial, isEditClicked: false, postToEdit: {}, editedTitle: '', editedDescription: ''}
 
     componentDidMount() {
         this.getPostsList()
@@ -38,9 +38,6 @@ class PostsList extends Component {
         
     } 
 
-    onClickPostRetryButton = () => {
-        this.getPostsData()
-      }
 
     renderPostFailure = () => (
         <div className="post-failure-container">
@@ -53,7 +50,6 @@ class PostsList extends Component {
           <button
             type="button"
             className="post-try-again-button"
-            onClick={this.onClickPostRetryButton()}
           >
             Try Again
           </button>
@@ -66,7 +62,7 @@ class PostsList extends Component {
         return (
             <ul className="posts-list-container">
                 {postsList.map(each => (
-                    <PostItem postDetail={each} key={each.id} />
+                    <PostItem postDetail={each} key={each.id} onClickEditButton={this.onClickEditButton} />
                 ))}
             </ul>
         )
@@ -77,6 +73,16 @@ class PostsList extends Component {
           <TailSpin color="#0b69ff" height="50" width="50" />
         </div>
       )
+
+      onClickEditButton = (id) => {
+        const {postsList} = this.state 
+        this.setState({isEditClicked: true})
+        const editPost = postsList.find(each => each.id === id)
+        const {title, body} = editPost
+        this.setState({postToEdit: editPost, editedTitle: title, editedDescription: body})
+        console.log(editPost)
+        console.log("Edit is clicked")
+      }
     
       renderPosts = () => {
         const {apiStatus} = this.state
@@ -91,14 +97,53 @@ class PostsList extends Component {
             return ''
         }
       }
+    
+    onChangeTitle = (e) => {     
+      this.setState({editedTitle: e.target.value})     
+    }
+
+    onChangeDescription = (e) => {
+      this.setState({editedDescription: e.target.value})
+    }
+
+    onClickSave = (e) => {
+      e.preventDefault()
+      const {postToEdit} = this.state
+      const {id} = postToEdit
+      this.setState(prevState => ({
+        postsList: prevState.postsList.map(each => {   
+          if (each.id === id) {
+            const {editedTitle, editedDescription} = this.state
+            return {...each, title: editedTitle, body: editedDescription}
+        }
+        return each
+        })
+        , isEditClicked: !prevState.isEditClicked}))
+    }
+
+    renderForm = () => {
+      const {editedTitle, editedDescription, postToEdit} = this.state 
+      console.log(postToEdit)
+      return (
+        <form className="form-container">
+            <label className="label" htmlFor="title">Enter Title</label>
+            <input onChange={this.onChangeTitle} placeholder="Enter Updated Title" id="title" value={editedTitle} className="title-input" />
+            <label className="label" htmlFor="description">Enter Description</label>
+            <textarea onChange={this.onChangeDescription} placeholder="Enter updated Description" id="description" value={editedDescription} className="input-description" cols="30" rows="10" />
+            <button onClick={this.onClickSave} type="submit" className="save-btn">Save</button>
+        </form>
+      )
+    }
 
     render() {
+        const {isEditClicked} = this.state
         
         return (
             <>
                 <Header />
+                {isEditClicked && this.renderForm()}
                 <div className="posts-container">
-                   {this.renderPosts()}
+                   {this.renderPostsSuccess()}
                 </div>
             </>
         )

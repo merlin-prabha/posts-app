@@ -5,9 +5,13 @@ import { MdEdit } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 
 const PostItem = (props) => {
-    const {postDetail} = props
-    const {title, body, reactions, views} = postDetail 
+    const {postDetail, onClickEditButton} = props
+    const {id, title, body, reactions, views} = postDetail 
     const {likes, disLikes} = reactions
+
+    const onClickEdit = () => {
+        onClickEditButton(id)
+    }
 
     return (
         <li className="post-item">
@@ -30,7 +34,7 @@ const PostItem = (props) => {
                     </div>
                 </div>
                 <div>
-                    <button type="button" className="edit-btn">
+                    <button type="button" className="edit-btn" onClick={onClickEdit}>
                         <MdEdit className="logo" />
                         <p className="edit-text">Edit</p>
                     </button>
