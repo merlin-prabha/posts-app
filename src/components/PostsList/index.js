@@ -1,5 +1,6 @@
 import { Component } from "react"
 import {TailSpin} from "react-loader-spinner"
+import { Link } from "react-router-dom"
 import "./index.css"
 import Header from "../Header"
 import PostItem from "../PostItem"
@@ -60,11 +61,16 @@ class PostsList extends Component {
         const {postsList} = this.state
         console.log(postsList)
         return (
+          <div className="posts-create-btn-container">
             <ul className="posts-list-container">
                 {postsList.map(each => (
                     <PostItem postDetail={each} key={each.id} onClickEditButton={this.onClickEditButton} />
                 ))}
             </ul>
+              <Link to="/create" className="link-element-postslist">
+                <button type="button" className="create-btn">Create</button>
+              </Link>
+          </div>
         )
       }
     
@@ -135,6 +141,7 @@ class PostsList extends Component {
       )
     }
 
+
     render() {
         const {isEditClicked} = this.state
         
@@ -143,7 +150,7 @@ class PostsList extends Component {
                 <Header />
                 {isEditClicked && this.renderForm()}
                 <div className="posts-container">
-                   {this.renderPostsSuccess()}
+                   {this.renderPosts()}
                 </div>
             </>
         )

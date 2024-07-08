@@ -9,14 +9,16 @@ import './App.css';
 
 class App extends Component {
   render() {
+
     return (
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <ProtectedRoute exact path="/" component={PostsList} />
-        <ProtectedRoute exact path="/create" component={CreatePost} />
-        <Route exact path="/not-found" component={NotFound} />
-        <Redirect to="not-found" />
-      </Switch>
+      
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <ProtectedRoute exact path="/" component={PostsList} />
+          <ProtectedRoute exact path="/create" component={CreatePost} />
+          <Route exact path="/not-found" component={NotFound} />
+          <Redirect to="not-found" />
+        </Switch>
     )
   }
 }
